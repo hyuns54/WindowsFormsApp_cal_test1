@@ -114,8 +114,24 @@ namespace WindowsFormsApp_cal_test1
         }
 
         private void Btn_ClearEntry_Click(object sender, EventArgs e)
+        // 숫자를 누를 때마다 현재 입력값에 이어 붙이는 함수입니다.
+        private void AppendToCurrentInput(string val)
         {
-            display.Text = "";
+            if (isResultJustShown)
+            {
+                // 계산 결과를 본 다음 숫자를 누르면 새로운 계산을 시작합니다.
+                currentInput = val;
+                expression = "";
+                isResultJustShown = false;
+            }
+            else
+            {
+                // 기존 숫자 입력에 숫자를 추가합니다.
+                currentInput += val;
+            }
+
+            UpdateDisplay(); // 화면 갱신
+        }
         }
     }
 }
