@@ -22,6 +22,7 @@ namespace WindowsFormsApp_cal_test1
             display.Text = "0";
 
         }
+
         private void Number_Click(object sender, EventArgs e) // 숫자 버튼 클릭 이벤트
         {
             Button button = (Button)sender; //클릭된 버튼 가져옴
