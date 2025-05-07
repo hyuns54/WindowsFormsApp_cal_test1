@@ -81,34 +81,35 @@ namespace WindowsFormsApp_cal_test1
                 UpdateDisplay();
             }
         }
+
+        // = 버튼을 눌렀을 때 동작 (계산 결과 보여주기)
         private void Btn_Result_Click(object sender, EventArgs e)
         {
-            double seconValue = double.Parse(display.Text);
-            switch (cOperation)
+            try
             {
-                case "+":
-                    display.Text = (cValue + seconValue).ToString();
-                    break;
-                case "-":
-                    display.Text = (cValue - seconValue).ToString();
-                    break;
-                case "*":
-                    display.Text = (cValue * seconValue).ToString();
-                    break;
-                case "/":
-                    if(seconValue != 0 )
-                    {
-                        display.Text = (cValue / seconValue).ToString();
+                // 입력 중인 숫자도 수식에 포함시킵니다.
+                expression += currentInput;
 
-                    }
-                    else
-                    {
-                        display.Text = "입력이 잘못 되었습니다.";
-                    }
-                    break;
+                // 전체 수식을 계산합니다. 예: "1 + 2 * 3"
+                var result = new DataTable().Compute(expression, null);
 
+                // 결과를 currentInput에 저장해서 화면에 보여줄 수 있게 합니다.
+                currentInput = result.ToString();
+
+                // 화면에 결과와 수식을 함께 보여줍니다.
+                UpdateDisplay(showResult: true, originalExpression: expression);
+
+                // 계산한 후엔 수식을 초기화합니다.
+                expression = "";
+
+                // 지금 표시된 게 계산 결과라는 걸 표시합니다.
+                isResultJustShown = true;
             }
-            cValue = double.Parse(display.Text);
+            catch
+            {
+                // 계산 도중 오류가 나면 에러 메시지를 보여줍니다.
+                display.Text = "Error";
+            }
         }
         private void Btn_Clear_Click(object sender, EventArgs e)
         // +, -, *, / 같은 연산자 버튼을 눌렀을 때 처리하는 함수입니다.
