@@ -162,6 +162,21 @@ namespace WindowsFormsApp_cal_test1
 
             UpdateDisplay(); // 화면 갱신
         }
+
+        // 화면에 계산식과 현재 입력 숫자를 보여주는 함수입니다.
+        private void UpdateDisplay(bool showResult = false, string originalExpression = "")
+        {
+            if (showResult)
+            {
+                // 결과를 표시할 때: 위에는 수식, 아래에는 결과
+                display.Text = originalExpression + Environment.NewLine + currentInput;
+            }
+            else
+            {
+                // 입력 중일 때: 위에는 수식, 아래에는 지금 입력 중인 숫자
+                display.Text = expression + Environment.NewLine +
+                    (string.IsNullOrEmpty(currentInput) ? " " : currentInput);
+            }
         }
     }
 }
