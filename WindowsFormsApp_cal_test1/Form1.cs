@@ -48,6 +48,35 @@ namespace WindowsFormsApp_cal_test1
                 display.Text += ".";
             }
         }
+        private void Btn_Result_Click(object sender, EventArgs e)
+        {
+            double seconValue = double.Parse(display.Text);
+            switch (cOperation)
+            {
+                case "+":
+                    display.Text = (cValue + seconValue).ToString();
+                    break;
+                case "-":
+                    display.Text = (cValue - seconValue).ToString();
+                    break;
+                case "*":
+                    display.Text = (cValue * seconValue).ToString();
+                    break;
+                case "/":
+                    if(seconValue != 0 )
+                    {
+                        display.Text = (cValue / seconValue).ToString();
+
+                    }
+                    else
+                    {
+                        display.Text = "입력이 잘못 되었습니다.";
+                    }
+                    break;
+
+            }
+            cValue = double.Parse(display.Text);
+        }
         }
 
         private void btn_1_Click(object sender, EventArgs e)
