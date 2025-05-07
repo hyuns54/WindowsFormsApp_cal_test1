@@ -111,7 +111,7 @@ namespace WindowsFormsApp_cal_test1
                 display.Text = "Error";
             }
         }
-        private void Btn_Clear_Click(object sender, EventArgs e)
+
         // +, -, *, / 같은 연산자 버튼을 눌렀을 때 처리하는 함수입니다.
         private void AppendToExpression(string op)
         {
@@ -143,7 +143,6 @@ namespace WindowsFormsApp_cal_test1
             UpdateDisplay();
         }
 
-        private void Btn_ClearEntry_Click(object sender, EventArgs e)
         // 숫자를 누를 때마다 현재 입력값에 이어 붙이는 함수입니다.
         private void AppendToCurrentInput(string val)
         {
