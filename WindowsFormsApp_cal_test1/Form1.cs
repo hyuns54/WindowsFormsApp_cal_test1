@@ -33,6 +33,14 @@ namespace WindowsFormsApp_cal_test1
             isOperationClicked = false; //연산자 클릭 초기화
             display.Text += button.Text; //버튼의 텍스트를 결과창에 띄움
         }
+        private void Operation_Click(object sender, EventArgs e) //연산자 버튼 클릭 이벤트
+        {
+            Button button = (Button)sender; // 클릭된 버튼 가져옴
+            cOperation = button.Text; //오퍼레이터라는 변수에 버튼의 텍스트 대입
+            cValue = double.Parse(display.Text); //변수를 결과창에 실수로 대입
+            isOperationClicked = true; //연산자 클릭 초기화
+            display.Text = cValue.ToString() + " " + cOperation; //결과창에 실수와 연산자 띄움
+        }
         }
 
         private void btn_1_Click(object sender, EventArgs e)
