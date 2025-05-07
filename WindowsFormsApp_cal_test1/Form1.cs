@@ -12,34 +12,63 @@ namespace WindowsFormsApp_cal_test1
 {
     public partial class Form1 : Form
     {
-            double cValue = 0; // cVALUE라는 변수에 0 대입
-            string cOperation = ""; // cOperation이라는 변수에 "" 대입
-        bool isOperationClicked = false; // 연산자가 클릭되었는지 확인하는 변수
+        // 사용자가 입력 중인 숫자를 저장합니다.
+        private string currentInput = "";
 
+        // 전체 계산식을 저장합니다 (예: "1 + 2 *").
+        private string expression = "";
+
+        // 결과가 방금 표시되었는지 여부를 저장합니다.
+        private bool isResultJustShown = false;
+
+        // 폼이 생성될 때 자동으로 실행되는 생성자입니다.
         public Form1()
         {
-            InitializeComponent();
-            display.Text = "0";
-
+            InitializeComponent(); // 폼에 있는 버튼, 텍스트박스 등을 초기화합니다.
+            AssignButtonEvents();  // 버튼들이 클릭되었을 때 어떤 동작을 할지 연결합니다.
         }
 
-        private void Number_Click(object sender, EventArgs e) // 숫자 버튼 클릭 이벤트
+        // 모든 버튼에 클릭 이벤트를 연결하는 함수입니다.
+        private void AssignButtonEvents()
         {
-            Button button = (Button)sender; //클릭된 버튼 가져옴
-            if (display.Text == "0" || isOperationClicked ) //텍스트가 0이거나 거짓의 연산자가 클릭 되었을 때
+            // 숫자 버튼을 누르면 해당 숫자를 입력창에 추가합니다.
+            Btn_0.Click += (s, e) => AppendToCurrentInput("0");
+            Btn_1.Click += (s, e) => AppendToCurrentInput("1");
+            Btn_2.Click += (s, e) => AppendToCurrentInput("2");
+            Btn_3.Click += (s, e) => AppendToCurrentInput("3");
+            Btn_4.Click += (s, e) => AppendToCurrentInput("4");
+            Btn_5.Click += (s, e) => AppendToCurrentInput("5");
+            Btn_6.Click += (s, e) => AppendToCurrentInput("6");
+            Btn_7.Click += (s, e) => AppendToCurrentInput("7");
+            Btn_8.Click += (s, e) => AppendToCurrentInput("8");
+            Btn_9.Click += (s, e) => AppendToCurrentInput("9");
+
+            // 연산자 버튼을 누르면 수식에 연산 기호를 추가합니다.
+            Btn_Add.Click += (s, e) => AppendToExpression("+");
+            Btn_Subtract.Click += (s, e) => AppendToExpression("-");
+            Btn_Multiply.Click += (s, e) => AppendToExpression("*");
+            Btn_Divide.Click += (s, e) => AppendToExpression("/");
+
+            // 소수점(.) 버튼을 누를 때 처리
+            Btn_Point.Click += Btn_Point_Click;
+
+            // = 버튼 (결과 계산 버튼)을 누를 때 처리
+            Btn_Result.Click += Btn_Result_Click;
+
+            // 전체 초기화 버튼 (C) - 수식과 입력을 모두 지웁니다.
+            Btn_Clear.Click += (s, e) =>
             {
-                display.Text = ""; // 아무것도 띄우지 않음
-            }
-            isOperationClicked = false; //연산자 클릭 초기화
-            display.Text += button.Text; //버튼의 텍스트를 결과창에 띄움
-        }
-        private void Operation_Click(object sender, EventArgs e) //연산자 버튼 클릭 이벤트
-        {
-            Button button = (Button)sender; // 클릭된 버튼 가져옴
-            cOperation = button.Text; //오퍼레이터라는 변수에 버튼의 텍스트 대입
-            cValue = double.Parse(display.Text); //변수를 결과창에 실수로 대입
-            isOperationClicked = true; //연산자 클릭 초기화
-            display.Text = cValue.ToString() + " " + cOperation; //결과창에 실수와 연산자 띄움
+                expression = "";
+                currentInput = "";
+                display.Clear(); // 화면도 비웁니다.
+            };
+
+            // 현재 입력만 초기화 (CE) - 예: "3 + 5" 에서 5만 지우고 싶을 때 사용
+            Btn_ClearEntry.Click += (s, e) =>
+            {
+                currentInput = "";
+                UpdateDisplay(); // 화면만 다시 보여줍니다.
+            };
         }
         private void Btn_Point_Click(object sender, EventArgs e)
         {
