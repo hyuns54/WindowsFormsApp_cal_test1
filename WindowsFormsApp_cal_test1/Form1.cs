@@ -70,11 +70,15 @@ namespace WindowsFormsApp_cal_test1
                 UpdateDisplay(); // 화면만 다시 보여줍니다.
             };
         }
+
+        // 소수점(.) 버튼을 눌렀을 때 동작
         private void Btn_Point_Click(object sender, EventArgs e)
         {
-            if(!display.Text.Contains(".")) //
+            // 이미 소수점이 들어간 경우에는 또 추가하지 않도록 막습니다.
+            if (!currentInput.Contains("."))
             {
-                display.Text += ".";
+                currentInput += ".";
+                UpdateDisplay();
             }
         }
         private void Btn_Result_Click(object sender, EventArgs e)
