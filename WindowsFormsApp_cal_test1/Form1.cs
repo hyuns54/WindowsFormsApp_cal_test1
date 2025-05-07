@@ -22,6 +22,16 @@ namespace WindowsFormsApp_cal_test1
             display.Text = "0";
 
         }
+        private void Number_Click(object sender, EventArgs e) // 숫자 버튼 클릭 이벤트
+        {
+            Button button = (Button)sender; //클릭된 버튼 가져옴
+            if (display.Text == "0" || isOperationClicked ) //텍스트가 0이거나 거짓의 연산자가 클릭 되었을 때
+            {
+                display.Text = ""; // 아무것도 띄우지 않음
+            }
+            isOperationClicked = false; //연산자 클릭 초기화
+            display.Text += button.Text; //버튼의 텍스트를 결과창에 띄움
+        }
         }
 
         private void btn_1_Click(object sender, EventArgs e)
