@@ -41,6 +41,13 @@ namespace WindowsFormsApp_cal_test1
             isOperationClicked = true; //연산자 클릭 초기화
             display.Text = cValue.ToString() + " " + cOperation; //결과창에 실수와 연산자 띄움
         }
+        private void Btn_Point_Click(object sender, EventArgs e)
+        {
+            if(!display.Text.Contains(".")) //
+            {
+                display.Text += ".";
+            }
+        }
         }
 
         private void btn_1_Click(object sender, EventArgs e)
