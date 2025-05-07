@@ -77,11 +77,16 @@ namespace WindowsFormsApp_cal_test1
             }
             cValue = double.Parse(display.Text);
         }
+        private void Btn_Clear_Click(object sender, EventArgs e)
+        {
+            display.Text = "";
+            cValue = 0;
+            cOperation = "";
         }
 
-        private void btn_1_Click(object sender, EventArgs e)
+        private void Btn_ClearEntry_Click(object sender, EventArgs e)
         {
-            textBox_result.Text = "1";
+            display.Text = "";
         }
     }
 }
