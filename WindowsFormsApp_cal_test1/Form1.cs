@@ -107,10 +107,35 @@ namespace WindowsFormsApp_cal_test1
             cValue = double.Parse(display.Text);
         }
         private void Btn_Clear_Click(object sender, EventArgs e)
+        // +, -, *, / 같은 연산자 버튼을 눌렀을 때 처리하는 함수입니다.
+        private void AppendToExpression(string op)
         {
-            display.Text = "";
-            cValue = 0;
-            cOperation = "";
+            if (isResultJustShown)
+            {
+                // 이전에 계산 결과가 나왔고, 그 다음에 연산자를 눌렀다면
+                // 새 계산을 시작하기 위해 결과 값을 새 수식의 시작으로 씁니다.
+                expression = currentInput + " ";
+                isResultJustShown = false;
+            }
+            else if (!string.IsNullOrEmpty(currentInput))
+            {
+                // 결과 직후가 아닌 경우, 지금 입력 중인 숫자를 수식에 추가합니다.
+                expression += currentInput + " ";
+            }
+
+            // 연산자가 중복되는 것을 막기 위한 처리입니다.
+            string trimmed = expression.TrimEnd();
+            if (trimmed.EndsWith("+") || trimmed.EndsWith("-") ||
+                trimmed.EndsWith("*") || trimmed.EndsWith("/"))
+            {
+                // 마지막 연산자를 지웁니다.
+                expression = trimmed.Substring(0, trimmed.Length - 1);
+            }
+
+            // 새로운 연산자를 수식에 추가합니다.
+            expression = expression.TrimEnd() + " " + op + " ";
+            currentInput = ""; // 숫자 입력은 새로 시작해야 하므로 초기화합니다.
+            UpdateDisplay();
         }
 
         private void Btn_ClearEntry_Click(object sender, EventArgs e)
